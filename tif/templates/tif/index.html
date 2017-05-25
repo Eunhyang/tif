@@ -1,0 +1,109 @@
+{% extends "tif/base.html" %}
+
+{% block body %}
+<!-- <div style="color:red; font-size:2em;">hello world, {{ name }}</div>
+<div style="color:#123456;">hello world, joe</div>
+<div style="color:red;">hello world, scott</div> -->
+
+<div class="container">
+  <div class="brand">Today I Feel</div>
+  <button id="addReport" class="btn btn-default" type="submit">New</button>
+  <div class="row">
+   {% for report in report_list %}
+    <div class="box">
+     <div class="col-lg-12">
+       <hr>
+           <h2 class="intro-text text-center">{{report.created_date|date:"Y-m-d"}}</h2>
+       <hr>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Activity</th>
+                <th>Feeling</th>
+                <th>Memo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><button id="addReport" data-toggle="modal"
+                  data-target="#ingredient-add-Modal"
+                  class="btn btn-default" type="submit">+</button></td>
+                <td>Doe</td>
+                <td>{{}}}</td>
+              </tr>
+              <tr>
+                <td>Mary</td>
+                <td>Moe</td>
+                <td>mary@example.com</td>
+              </tr>
+              <tr>
+                <td>July</td>
+                <td>Dooley</td>
+                <td>july@example.com</td>
+              </tr>
+            </tbody>
+          </table>
+     </div>
+    </div><!-- box -->
+   {% endfor %}
+  </div>
+  <div class="modal fade" id="ingredient-add-Modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="height:400px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">기록하기</h4>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" method="post" action="">
+              {% csrf_token %}
+              <div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="control-label">Activity:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                  </div>
+
+                <div class="form-group">
+                    <label for="recipient-name" class="control-label">Feeling:</label>
+                    <label class="checkbox-inline">
+                      <input type="checkbox" id="inlineCheckbox1" name="feeling" value="jy">
+                      <img class="emotion" src="static/img/joy.png" alt="기쁨">
+                    </label>
+                    <label class="checkbox-inline">
+                      <input type="checkbox" id="inlineCheckbox2" name="feeling" value="sd">
+                        <img class="emotion" src="static/img/sadness.png" alt="슬픔">
+                    </label>
+                    <label class="checkbox-inline">
+                      <input type="checkbox" id="inlineCheckbox3" name="feeling" value="ag">
+                       <img class="emotion" src="static/img/discust.png" alt="역겨움">
+                    </label>
+                    <label class="checkbox-inline">
+                      <input type="checkbox" id="inlineCheckbox3" name="feeling" value="dc">
+                       <img class="emotion" src="static/img/anger.png" alt="화남">
+                    </label>
+                    <label class="checkbox-inline">
+                      <input type="checkbox" id="inlineCheckbox3" name="feeling" value="fr">
+                       <img class="emotion" src="static/img/fear.png" alt="공포">
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="message-text" class="control-label">Memo:</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                  </div>
+              </div>
+              <button type="submit" class="btn btn-default btn-block">저장하기</button>
+          </form>
+        </div>
+        </div>
+        </div>
+      </div><!-- /.modal-content -->
+</div>
+<script type="text/javascript">
+  var addReport = $("#addReport");
+  addReport.click(function () {
+    console.log("Already clicked!");
+  })
+</script>
+{% endblock %}
