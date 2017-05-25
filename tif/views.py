@@ -12,16 +12,31 @@ def IndexView(request):
         ctx.update({
             "report_list":report_list,
         })
-    elif request.method == "POST":
-        activity_set = ([])
-        activity = request.POST.get('activity')
-        activity_set = activity.split()
-
-        feeling = request.POST.get('feeling')
-        print(feeling)
     return render(request, 'tif/index.html', ctx)
 
     # return HttpResponse('투표할 질문들을 보여주는 Index Page')
+def record(request, time_id):
+    # ctx = {}
+    # time = get_object_or_404(Time, pk=time_id)
+    #
+    # activity_set = ([])
+    # activity = request.POST.get('activity')
+    # activity_set = activity.split()
+    # for activity in activity_set:
+    #     if activity not in [activity.content for activity in Activity.objects.all()]:
+    #         HashTag.objects.create(
+    #             content = activity
+    #         )
+    # time.activity.add(activity)
+    #
+    # feeling_set = request.POST.get('feeling')
+    # for feeling in feeling_set:
+    #     Feeling.objects.create(
+    #         feeling = feeling
+    #     )
+    # time.feeling.add(feeling)
+    pass
+
 
 # def DetailView(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
