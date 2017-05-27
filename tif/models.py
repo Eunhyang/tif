@@ -26,6 +26,7 @@ class Activity(models.Model):
         return self.content
 
 class Feeling(models.Model):
+    icon = models.ImageField(null=True)
     feeling = models.CharField(max_length = 10)
     def __str__(self):
         return self.feeling
