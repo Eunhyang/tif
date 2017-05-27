@@ -3,6 +3,7 @@ from django.utils import timezone
 # Create your models here.
 
 class Report(models.Model):
+    name = models.CharField(max_length = 8, null=True)
     created_date = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return '{}'.format(self.id)
@@ -10,6 +11,7 @@ class Report(models.Model):
 class Time(models.Model):
     report = models.ForeignKey(
         Report,
+        related_name = "report_time",
         on_delete = models.CASCADE,
     )
     name = models.CharField(max_length = 5)
@@ -27,7 +29,7 @@ class Activity(models.Model):
 class Feeling(models.Model):
     feeling = models.CharField(max_length = 10)
     def __str__(self):
-        return self.category
+        return self.feeling
 
 class Memo(models.Model):
     content = models.CharField(max_length = 200)

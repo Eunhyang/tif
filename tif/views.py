@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
 import json
 from .models import Report, Time
 # Create your views here.
@@ -14,8 +15,20 @@ def IndexView(request):
         })
     return render(request, 'tif/index.html', ctx)
 
+def record(request):
+    ctx = {}
+    now = str(timezone.now())
+    now = now[:11]
+    #오늘 날찌 report 등록
+    Report.objects.create(
+        name = now,
+        created_date = timezone.now()
+    )
+    return HttpResponseRedirect('/')
+
+
     # return HttpResponse('투표할 질문들을 보여주는 Index Page')
-def record(request, time_id):
+# def record(request, time_id):
     # ctx = {}
     # time = get_object_or_404(Time, pk=time_id)
     #
@@ -35,7 +48,7 @@ def record(request, time_id):
     #         feeling = feeling
     #     )
     # time.feeling.add(feeling)
-    pass
+
 
 
 # def DetailView(request, question_id):
