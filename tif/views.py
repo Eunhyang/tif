@@ -6,7 +6,7 @@ from django.contrib import messages
 
 from django.utils import timezone
 import json
-from .models import Report, Time
+from .models import Report, Time, Activity, Feeling, Memo
 # Create your views here.
 
 def create_time(report):
@@ -92,8 +92,12 @@ def IndexView(request):
     ctx = {}
     if request.method == "GET" :
         report_list = Report.objects.all()
+        activity_list = Activity.objects.all()
+        feeling_list = Feeling.objects.all()
         ctx.update({
             "report_list":report_list,
+            "activity_list":activity_list,
+            "feeling_list":feeling_list
         })
     return render(request, 'tif/index.html', ctx)
 
