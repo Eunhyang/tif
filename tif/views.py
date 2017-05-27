@@ -9,6 +9,85 @@ import json
 from .models import Report, Time
 # Create your views here.
 
+def create_time(report):
+    Time.objects.create(
+        name = '05-06',
+        report = report
+    )
+    Time.objects.create(
+        name = '06-07',
+        report = report
+    )
+    Time.objects.create(
+        name = '07-08',
+        report = report
+    )
+    Time.objects.create(
+        name = '08-09',
+        report = report
+    )
+    Time.objects.create(
+        name = '09-10',
+        report = report
+    )
+    Time.objects.create(
+        name = '10-11',
+        report = report
+    )
+    Time.objects.create(
+        name = '11-12',
+        report = report
+    )
+    Time.objects.create(
+        name = '12-13',
+        report = report
+    )
+    Time.objects.create(
+        name = '13-14',
+        report = report
+    )
+    Time.objects.create(
+        name = '14-15',
+        report = report
+    )
+    Time.objects.create(
+        name = '15-16',
+        report = report
+    )
+    Time.objects.create(
+        name = '16-17',
+        report = report
+    )
+    Time.objects.create(
+        name = '17-18',
+        report = report
+    )
+    Time.objects.create(
+        name = '18-19',
+        report = report
+    )
+    Time.objects.create(
+        name = '19-20',
+        report = report
+    )
+    Time.objects.create(
+        name = '20-21',
+        report = report
+    )
+    Time.objects.create(
+        name = '21-22',
+        report = report
+    )
+    Time.objects.create(
+        name = '22-23',
+        report = report
+    )
+    Time.objects.create(
+        name = '23-24',
+        report = report
+    )
+
+
 def IndexView(request):
     ctx = {}
     if request.method == "GET" :
@@ -24,10 +103,11 @@ def record(request):
     now = now[:11]
     #오늘 날찌 report 등록
     if now not in [report.name for report in Report.objects.all()]:
-        Report.objects.create(
+        report = Report.objects.create(
             name = now,
             created_date = timezone.now()
         )
+        create_time(report)
     else:
         messages.warning(request, '해당 날짜의 report가 존재합니다!')
         # ctx.update({"message":"이미 오늘 날짜의 report가 존재합니다!"})
