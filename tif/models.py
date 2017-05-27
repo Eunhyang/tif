@@ -17,7 +17,6 @@ class Time(models.Model):
     name = models.CharField(max_length = 5)
     activity = models.ManyToManyField('Activity', null=True, blank=True)
     feeling = models.ManyToManyField('Feeling', null=True, blank=True)
-    memo = models.ManyToManyField('Memo', null=True, blank=True)
     def __str__(self):
         return self.name
 
@@ -32,6 +31,12 @@ class Feeling(models.Model):
         return self.feeling
 
 class Memo(models.Model):
-    content = models.CharField(max_length = 200)
+    title = models.CharField(max_length = 50)
+    content = models.CharField(max_length = 1000, null=True)
+    time = models.ForeignKey(
+        Time,
+        related_name = "time_memo",
+        on_delete = models.CASCADE,
+    )
     def __str__(self):
         return self.content
