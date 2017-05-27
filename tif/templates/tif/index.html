@@ -112,5 +112,15 @@
   addReport.click(function () {
     console.log("Already clicked!");
   })
+  // {% if messages %}
+  //   {% for message in messages %}
+  //     alert('{{message}}');
+  //   {% endfor %}
+  // {% endif %}
+  {% if messages %}
+    {% for message in messages %}
+      alert('{{message}}');
+    {% endfor %}
+  {% endif %}
 </script>
 {% endblock %}

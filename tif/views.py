@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+
+from django.contrib import messages
+
 from django.utils import timezone
 import json
 from .models import Report, Time
@@ -20,10 +23,14 @@ def record(request):
     now = str(timezone.now())
     now = now[:11]
     #오늘 날찌 report 등록
-    Report.objects.create(
-        name = now,
-        created_date = timezone.now()
-    )
+    if now not in [report.name for report in Report.objects.all()]:
+        Report.objects.create(
+            name = now,
+            created_date = timezone.now()
+        )
+    else:
+        messages.warning(request, '해당 날짜의 report가 존재합니다!')
+        # ctx.update({"message":"이미 오늘 날짜의 report가 존재합니다!"})
     return HttpResponseRedirect('/')
 
 
