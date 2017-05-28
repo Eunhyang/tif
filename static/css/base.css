@@ -10,3 +10,12 @@ img {
 .emotion {
     width:30px;
 }
+
+.icon {
+    color: #888;
+    cursor:pointer;
+}
+
+td {
+    padding: 10px !important;
+}

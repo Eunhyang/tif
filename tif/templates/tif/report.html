@@ -32,13 +32,17 @@
                     {% for memo in time.time_memo.all %}
                         {{memo.title}}
                     {% endfor %}
+                    <a id="{{time.id}}" class="addReport" data-toggle="modal"
+                       data-target="#memo-Modal">+</a>
                 </td>
-                <td><button id="addReport" data-toggle="modal"
-                  data-target="#ingredient-add-Modal"
-                  class="btn btn-default" type="submit">+</button></td>                    
+                <td><a id="{{time.id}}" class="addReport" data-toggle="modal"
+                  data-target="#record-Modal"><i class="fa fa-pencil icon" aria-hidden="true"></i></a></td>                    
               </tr>
             {% endfor %}
             </tbody>
           </table>
      </div>
     </div><!-- box -->
+<script>
+
+</script>

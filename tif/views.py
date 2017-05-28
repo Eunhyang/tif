@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.utils import timezone
 import json
 from .models import Report, Time, Activity, Feeling, Memo
+from .forms import MemoForm
 # Create your views here.
 
 def create_time(report):
@@ -91,17 +92,21 @@ def create_time(report):
 def IndexView(request):
     ctx = {}
     if request.method == "GET" :
-        report_list = Report.objects.all()
+        report_list = Report.objects.all().order_by('-created_date')
         activity_list = Activity.objects.all()
         feeling_list = Feeling.objects.all()
+
+        memo_form = MemoForm()
+
         ctx.update({
             "report_list":report_list,
             "activity_list":activity_list,
-            "feeling_list":feeling_list
+            "feeling_list":feeling_list,
+            "memo_form":memo_form,
         })
     return render(request, 'tif/index.html', ctx)
 
-def record(request):
+def report_add(request):
     ctx = {}
     now = str(timezone.now())
     now = now[:11]
@@ -117,30 +122,46 @@ def record(request):
         # ctx.update({"message":"이미 오늘 날짜의 report가 존재합니다!"})
     return HttpResponseRedirect('/')
 
+def record(request):
+    ctx = {}
+    time_id = request.POST.get('timeId')
+    print('----------'+time_id+'-------------')
+    time = get_object_or_404(Time, pk=time_id)
 
-    # return HttpResponse('투표할 질문들을 보여주는 Index Page')
-# def record(request, time_id):
-    # ctx = {}
-    # time = get_object_or_404(Time, pk=time_id)
-    #
-    # activity_set = ([])
-    # activity = request.POST.get('activity')
-    # activity_set = activity.split()
-    # for activity in activity_set:
-    #     if activity not in [activity.content for activity in Activity.objects.all()]:
-    #         HashTag.objects.create(
-    #             content = activity
-    #         )
-    # time.activity.add(activity)
-    #
-    # feeling_set = request.POST.get('feeling')
-    # for feeling in feeling_set:
-    #     Feeling.objects.create(
-    #         feeling = feeling
-    #     )
-    # time.feeling.add(feeling)
+    activity_set = ([])
+    activity_set = request.POST.get('activity').split()
+    for activity_cont in activity_set:
+        print('-------------------'+activity_cont+'-------------------')
+        if activity_cont not in [activity.content for activity in Activity.objects.all()]:
+            activity = Activity.objects.create(content = activity_cont)
+            time.activity.add(activity.id)
+        else :
+            activity = Activity.objects.get(content = activity_cont)
+            time.activity.add(activity.id)
 
+    feeling_set = request.POST.getlist('feeling')
+    for f in feeling_set:
+        print('-------------------'+f+'-------------------')
+        feeling = Feeling.objects.get(feeling = f )
+        time.feeling.add(feeling)
 
+    return render(request, 'tif/index.html')
+
+def memo_add(request):
+    ctx = {}
+    time_id = request.POST.get('timeId')
+    print('----------'+time_id+'-------------')
+    time = get_object_or_404(Time, pk=time_id)
+
+    memo_form = MemoForm(request.POST)
+
+    if memo_form.is_valid():
+        memo = memo_form.save(commit = False)
+        memo.time = time
+        memo.save()
+        return redirect('/')
+
+    return render(request, 'tif/index.html')
 
 # def DetailView(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
