@@ -67,7 +67,7 @@
   </div>
  </div><!-- /.modal-content -->
  
-   <div class="modal fade" id="memo-Modal" tabindex="-1" role="dialog">
+<div class="modal fade" id="memo-Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form enctype="multipart/form-data" id="subscribe-memo-form" method="post" action="{% url 'tif:memo_add' %}">
@@ -80,6 +80,34 @@
           <div class="modal-body">
               {{memo_form.as_p}}
           </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default btn-block">Submit</button>
+        </div>
+    </form>
+   </div>
+  </div>
+ </div><!-- /.modal-content -->
+ 
+<div class="modal fade" id="memo-Modal-2" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form enctype="multipart/form-data" id="subscribe-memo-form" method="post" action="{% url 'tif:memo_edit' %}">
+        {% csrf_token %}
+        <input type="hidden" class="memoId" name="memoId" value="memoId">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Memo</h4>
+        </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Title:</label>
+            <input type="text"  class="form-control" id="title" name="title" value="안녕">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Content:</label>
+            <textarea class="form-control" id="content" name="content"></textarea>
+          </div>
+      </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-default btn-block">Submit</button>
         </div>
@@ -115,20 +143,23 @@ $(document).ready(function() {
         });
     });
     
-//    $(function(){
-//    $('#subscribe-memo-form').on('submit', function(e){
-//        e.preventDefault();
-//        $('#memo-Modal').modal('hide');
-//        $.ajax({
-//                url: '{% url 'tif:memo_add' %}',
-//                type: 'POST',
-//                data: $('#subscribe-memo-form').serialize(),
-//                success: function(data){
-//                    window.location.reload()
-//                }
-//            });
-//        });
-//    });
+    $(function(){
+    $('.memo').click(function(){
+        var memoId = $(this).attr('id');
+        $(".memoId").attr('value', memoId );
+        $.ajax({
+                dataType: "json",
+                url: '{% url 'tif:memo_data' %}',
+                type: 'GET',
+                data:{"memoId" : memoId },
+                success: function(data){
+                     console.log(data);
+                    $('#memo-Modal-2 #title').attr('value', data.title);
+                    $('#memo-Modal-2 #content').html( data.content)
+                }
+            });
+        });
+    });
     
 }); 
 

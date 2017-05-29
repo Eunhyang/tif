@@ -163,6 +163,44 @@ def memo_add(request):
 
     return render(request, 'tif/index.html')
 
+def memo_data(request):
+    memo_id = request.GET.get('memoId')
+    memo = get_object_or_404(Memo, pk=memo_id)
+    if request.method == "GET":
+        # Partnerform 객체 생성
+        print('----------'+memo.title+'-------------')
+        memo_form = MemoForm(instance = memo)
+        result = {
+            'title': memo.title,
+            'content':memo.content
+        }
+        result = json.dumps(result)
+
+    return HttpResponse(result)
+
+def memo_edit(request):
+    memo_id = request.POST.get('memoId')
+    memo = get_object_or_404(Memo, pk=memo_id)
+    # print('----------'+memo.id+'-------------')
+    title = request.POST.get('title')
+    content = request.POST.get('content')
+    memo.title = title
+    memo.content = content
+    memo.save()
+    return redirect('/')
+
+    # elif request.method == "POST":
+    #     memo_form = MemoForm(request.POST,instance=memo)
+    #     if menu_form.is_valid():
+    #         menu = menu_form.save(commit = False)
+    #         menu.partner = request.user.partner
+    #         menu.save()
+    #         return redirect("/partner/menu/" + menu_id)
+    #     else:
+    #         ctx.update({"menu_form":menu_form})
+
+    # return render(request, "menu_add.html", ctx)
+
 # def DetailView(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, 'polls/detail.html', {'question': question})

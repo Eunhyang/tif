@@ -30,7 +30,8 @@
 
                 <td>
                     {% for memo in time.time_memo.all %}
-                        {{memo.title}}
+                        <a href="" class="memo" id="{{memo.id}}" class="addReport" data-toggle="modal"
+                       data-target="#memo-Modal-2">{{memo.title}}</a>
                     {% endfor %}
                     <a id="{{time.id}}" class="addReport" data-toggle="modal"
                        data-target="#memo-Modal">+</a>
@@ -44,5 +45,7 @@
      </div>
     </div><!-- box -->
 <script>
-
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
