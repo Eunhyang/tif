@@ -1,6 +1,9 @@
+body {
+    color:#52505f !important;    
+}
 
 .brand {
-    font-family: 'Indie Flower', cursive;
+    font-family: 'Dancing Script', cursive !important;
 }
 
 img {
@@ -18,4 +21,9 @@ img {
 
 td {
     padding: 10px !important;
+    font-family: "Josefin Slab" !important;
+}
+
+table th {
+    font-family: "Josefin Slab" !important;
 }
