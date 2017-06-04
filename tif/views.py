@@ -122,6 +122,11 @@ def report_add(request):
         # ctx.update({"message":"이미 오늘 날짜의 report가 존재합니다!"})
     return HttpResponseRedirect('/')
 
+def report_delete(request, report_id):
+    report = Report.objects.get(id = report_id)
+    report.delete()
+    return redirect("/")
+
 def record(request):
     ctx = {}
     time_id = request.POST.get('timeId')

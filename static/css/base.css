@@ -27,3 +27,22 @@ td {
 table th {
     font-family: "Josefin Slab" !important;
 }
+.brand {
+    margin-bottom: 20px !important;
+}
+
+.tif-btn {
+    float: right !important;
+    border-radius: 20px !important;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.dropdown-set {
+    float:right;
+}
+
+
+
+.fa-cog {
+    color: darkgray;
+}
