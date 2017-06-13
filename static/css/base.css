@@ -26,6 +26,7 @@ td {
 
 table th {
     font-family: "Josefin Slab" !important;
+    text-align: center;
 }
 .brand {
     margin-bottom: 20px !important;

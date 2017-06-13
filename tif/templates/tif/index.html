@@ -15,7 +15,7 @@
   <div class="modal fade" id="record-Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <form enctype="multipart/form-data" id="subscribe-time-form" method="post" action="">
+        <form enctype="multipart/form-data" id="subscribe-time-form" method="post" action="{% url 'tif:record' %}">
         {% csrf_token %}
         <input type="hidden" class="timeId" name="timeId" value="timeId">
 <!--
@@ -28,7 +28,7 @@
               <div>
                   <div class="form-group">
                     <label for="recipient-name" class="control-label">Activity:</label>
-                    <input type="text" class="form-control" id="recipient-name" name="activity">
+                    <input type="text" class="form-control" id="activity" name="activity">
                   </div>
 
                 <div class="form-group">
@@ -42,11 +42,11 @@
                         <img class="emotion" src="static/img/sadness.png" alt="슬픔">
                     </label>
                     <label class="checkbox-inline">
-                      <input type="checkbox" id="inlineCheckbox3" name="feeling" value="anger">
+                      <input type="checkbox" id="inlineCheckbox3" name="feeling" value="discust">
                        <img class="emotion" src="static/img/discust.png" alt="역겨움">
                     </label>
                     <label class="checkbox-inline">
-                      <input type="checkbox" id="inlineCheckbox3" name="feeling" value="discust">
+                      <input type="checkbox" id="inlineCheckbox3" name="feeling" value="anger">
                        <img class="emotion" src="static/img/anger.png" alt="화남">
                     </label>
                     <label class="checkbox-inline">
@@ -63,7 +63,7 @@
    </div>
   </div>
  </div><!-- /.modal-content -->
- 
+
 <div class="modal fade" id="memo-Modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -84,7 +84,7 @@
    </div>
   </div>
  </div><!-- /.modal-content -->
- 
+
 <div class="modal fade" id="memo-Modal-2" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -112,12 +112,12 @@
    </div>
   </div>
  </div><!-- /.modal-content -->
- 
- 
+
+
 </div>
 <script type="text/javascript">
-  
-$(document).ready(function() { 
+
+$(document).ready(function() {
     var addReport = $(".addReport")
     var timeId = 0;
     addReport.click(function () {
@@ -125,21 +125,22 @@ $(document).ready(function() {
         $(".timeId").attr('value', timeId );
       })
 
-    $(function(){
-    $('#subscribe-time-form').on('submit', function(e){
-        e.preventDefault();
-        $('#record-Modal').modal('hide');
-        $.ajax({
-                url: '{% url 'tif:record' %}',
-                type: 'POST',
-                data: $('#subscribe-time-form').serialize(),
-                success: function(data){
-                    window.location.reload()
-                }
-            });
-        });
-    });
-    
+    // $(function(){
+    // $('#subscribe-time-form').on('submit', function(e){
+    //     e.preventDefault();
+    //     $('#record-Modal').modal('hide');
+    //     $.ajax({
+    //             url: '{% url 'tif:record' %}',
+    //             type: 'POST',
+    //             data: $('#subscribe-time-form').serialize(),
+    //             success: function(data){
+    //                 $('#memo-Modal-2 #title').attr('value', data.title);
+    //                 $('#memo-Modal-2 #content').html( data.content)
+    //             }
+    //         });
+    //     });
+    // });
+
     $(function(){
     $('.memo').click(function(){
         var memoId = $(this).attr('id');
@@ -152,15 +153,15 @@ $(document).ready(function() {
                 success: function(data){
                      console.log(data);
                     $('#memo-Modal-2 #title').attr('value', data.title);
-                    $('#memo-Modal-2 #content').html( data.content)
+                    $('#memo-Modal-2 #content').html(data.content)
                 }
             });
         });
     });
-    
-}); 
 
-    
+});
+
+
   {% if messages %}
     {% for message in messages %}
       alert('{{message}}');

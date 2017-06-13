@@ -149,8 +149,23 @@ def record(request):
         print('-------------------'+f+'-------------------')
         feeling = Feeling.objects.get(feeling = f )
         time.feeling.add(feeling)
+        return redirect('/')
 
     return render(request, 'tif/index.html')
+
+# def time_data(request):
+#     time_id = request.GET.get('timeId')
+#     time = get_object_or_404(Time, pk=time_id)
+#     if request.method == "GET":
+#         # Partnerform 객체 생성
+#         print('----------'+time.id+'-------------')
+#         result = {
+#             'title': memo.title,
+#             'content':memo.content
+#         }
+#         result = json.dumps(result)
+#
+#     return HttpResponse(result)
 
 def memo_add(request):
     ctx = {}
@@ -174,7 +189,6 @@ def memo_data(request):
     if request.method == "GET":
         # Partnerform 객체 생성
         print('----------'+memo.title+'-------------')
-        memo_form = MemoForm(instance = memo)
         result = {
             'title': memo.title,
             'content':memo.content

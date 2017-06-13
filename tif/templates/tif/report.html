@@ -9,7 +9,7 @@
         </ul>
     </li>
 -->
-   
+
 
     <div class="box">
      <div class="col-lg-12" style="padding-right: 30px; padding-left: 30px;">
@@ -38,16 +38,16 @@
             <tbody>
              {% for time in report.report_time.all %}
               <tr>
-                <td>{{time.name}}</td>
+                <td style="width:80px; ">{{time.name}}</td>
                 <td>
                     {% for act in time.activity.all %}
                         #{{act.content}}
-                    {% endfor %}                    
+                    {% endfor %}
                 </td>
                 <td>
                     {% for f in time.feeling.all %}
-                    <img src="static/img/{{ f.icon.url }}" style="max-width:20px;">&nbsp;
-                    {% endfor %}                
+                    <img src="static/img/{{ f.feeling }}_icon.png" style="max-width:20px;">&nbsp;
+                    {% endfor %}
                 </td>
 
                 <td>
@@ -59,7 +59,7 @@
                        data-target="#memo-Modal">+</a>
                 </td>
                 <td style="width:30px;"><a id="{{time.id}}" class="addReport" data-toggle="modal"
-                  data-target="#record-Modal"><img src=static/img/pen2.png style="width:20px; cursor:pointer" alt=""></a></td>                    
+                  data-target="#record-Modal"><img src=static/img/pen2.png style="width:20px; cursor:pointer" alt=""></a></td>
               </tr>
             {% endfor %}
             </tbody>
