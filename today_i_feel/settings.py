@@ -124,3 +124,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 #    '/var/www/static/',
 ]
+
+ALLOWED_HOSTS = ['kimeunhyang902.pythonanywhere.com']
