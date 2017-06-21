@@ -208,48 +208,20 @@ def memo_edit(request):
     memo.save()
     return redirect('/')
 
-    # elif request.method == "POST":
-    #     memo_form = MemoForm(request.POST,instance=memo)
-    #     if menu_form.is_valid():
-    #         menu = menu_form.save(commit = False)
-    #         menu.partner = request.user.partner
-    #         menu.save()
-    #         return redirect("/partner/menu/" + menu_id)
-    #     else:
-    #         ctx.update({"menu_form":menu_form})
+def time_data(request):
+    time_id = request.GET.get('timeId')
+    time = get_object_or_404(Time, pk=time_id)
+    result = []
+    if request.method == "GET":
+        for activity in time.activity_set.all():
+            result.append({
+                'activity' : activity
+            })
+        for feeling in time.feeling_set.all():
+            result.append({
+                feeling : feeling
+            })
 
-    # return render(request, "menu_add.html", ctx)
+    result = json.dumps(result)
 
-# def DetailView(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     return render(request, 'polls/detail.html', {'question': question})
-#
-#     # return HttpResponse('{} 질문의 제목, 그리고 선택지들을 보여주는 Detail Page'.format(question_id))
-#
-# def ResultView(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     return render(request, 'polls/result.html', {'question': question})
-#
-#     # return HttpResponse('{} 해당 질문을 투표한 후, 결과를 보여주는 Result Page'.format(question_id))
-#
-# def vote(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     selected_choice = question.choice_set.get(pk=request.POST['choice'])
-#     selected_choice.votes += 1
-#     selected_choice.save()
-#     return HttpResponseRedirect(reverse('polls:result', args=(question_id,)))
-#
-#     # return HttpResponse('{} 지금 투표하기 기능을 실행중입니다'.format(question_id))
-#
-# def vote_data(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     result = []
-#
-#     for choice in question.choice_set.all():
-#         result.append({
-#             'choice_text': choice.choice_text,
-#             'votes': choice.votes,
-#         })
-#     result = json.dumps(result)
-#
-#     return HttpResponse(result)
+    return HttpResponse(result)

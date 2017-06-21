@@ -30,6 +30,15 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,6 +47,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # django-allauth The following apps are required:
+    'django.contrib.sites',
+
+    # thirdparty_apps
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
+
+    # local_apps
     'tif',
 ]
 
@@ -101,6 +120,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# 디폴트 SITE의 id
+# 등록하지 않으면, 각 요청 시에 host명의 Site 인스턴스를 찾습니다 .
+SITE_ID = 1
+
+# django-allauth setting
+LOGIN_REDIRECT_URL = 'tif:index' # 로그인 후 리디렉션할 페이지
+ACCOUNT_LOGOUT_REDIRECT_URL = "tif:index"  # 로그아웃 후 리디렉션 할 페이지
+ACCOUNT_LOGOUT_ON_GET = True # 로그아웃 버튼 클릭 시 자동 로그아웃
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -125,4 +152,7 @@ STATICFILES_DIRS = [
 #    '/var/www/static/',
 ]
 
-ALLOWED_HOSTS = ['kimeunhyang902.pythonanywhere.com']
+ALLOWED_HOSTS = [
+    'kimeunhyang902.pythonanywhere.com',
+    'localhost'
+    ]

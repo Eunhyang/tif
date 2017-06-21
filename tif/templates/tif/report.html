@@ -41,7 +41,8 @@
                 <td style="width:80px; ">{{time.name}}</td>
                 <td>
                     {% for act in time.activity.all %}
-                        #{{act.content}}
+                    <a href="" class="" id="{{time.id}}" data-toggle="modal"
+                   data-target="#update-Modal"> #{{act.content}}</a>
                     {% endfor %}
                 </td>
                 <td>
@@ -52,14 +53,14 @@
 
                 <td>
                     {% for memo in time.time_memo.all %}
-                        <a href="" class="memo" id="{{memo.id}}" class="addReport" data-toggle="modal"
+                        <a href="" class="memo" id="{{memo.id}}" data-toggle="modal"
                        data-target="#memo-Modal-2">{{memo.title}}</a>
                     {% endfor %}
                     <a id="{{time.id}}" class="addReport" data-toggle="modal"
                        data-target="#memo-Modal">+</a>
                 </td>
                 <td style="width:30px;"><a id="{{time.id}}" class="addReport" data-toggle="modal"
-                  data-target="#record-Modal"><img src=static/img/pen2.png style="width:20px; cursor:pointer" alt=""></a></td>
+                  data-target="#update-Modal"><img src=static/img/pen2.png style="width:20px; cursor:pointer" alt=""></a></td>
               </tr>
             {% endfor %}
             </tbody>
