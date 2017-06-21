@@ -1,5 +1,14 @@
 {% load socialaccount %}
-<li>
+<header id="top" class="header">
+        <div class="text-vertical-center">
+            <h1>Start TIF</h1>
+            <h3>매시간 나의 감정을 기록하세요.</h3>
+            <br>
+          <a href="{% provider_login_url 'kakao' %}"
+          class="btn btn-dark btn-lg">Kakao Login</a>
+    </div>
+</header>
+<!-- <li>
     <a href="{% provider_login_url 'kakao' %}" >
         <span class="glyphicon glyphicon-user"></span> Login</a>
-</li>
+</li> -->

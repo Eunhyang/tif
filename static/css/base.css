@@ -1,5 +1,5 @@
 body {
-    color:#52505f !important;    
+    color:#52505f !important;
 }
 
 .brand {
@@ -7,7 +7,7 @@ body {
 }
 
 img {
-    
+
 }
 
 .emotion {
@@ -46,4 +46,47 @@ table th {
 
 .fa-cog {
     color: darkgray;
+}
+
+.login {
+  text-align: center;
+}
+
+.login a{
+  color: white;
+}
+
+.login a:hover{
+  color: white;
+}
+
+.text-vertical-center {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.header {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    background-color: rgba(255,255,255,0.6);
+    box-shadow: 1px 1px 20px rgba(0,0,0,0.2);
+    color: #333;
+    font-family:'KoPub Doutum';
+}
+
+.header h3 {
+  font-family:'KoPub Doutum';
+}
+
+.btn-dark {
+    border-radius: 0;
+    color: #fff;
+    background-color: rgba(0,0,0,0.4);
 }
