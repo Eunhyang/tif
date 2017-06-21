@@ -92,18 +92,20 @@ def create_time(report):
 def IndexView(request):
     ctx = {}
     if request.method == "GET" :
-        report_list = Report.objects.all().order_by('-created_date')
-        activity_list = Activity.objects.all()
-        feeling_list = Feeling.objects.all()
+        if request.user.is_authenticated():
+            print(request.user.username)
+            report_list = Report.objects.filter(user = request.user).order_by('-created_date')
+            activity_list = Activity.objects.all()
+            feeling_list = Feeling.objects.all()
 
-        memo_form = MemoForm()
+            memo_form = MemoForm()
 
-        ctx.update({
-            "report_list":report_list,
-            "activity_list":activity_list,
-            "feeling_list":feeling_list,
-            "memo_form":memo_form,
-        })
+            ctx.update({
+                "report_list":report_list,
+                "activity_list":activity_list,
+                "feeling_list":feeling_list,
+                "memo_form":memo_form,
+            })
     return render(request, 'tif/index.html', ctx)
 
 def report_add(request):
@@ -113,6 +115,7 @@ def report_add(request):
     #오늘 날찌 report 등록
     if now not in [report.name for report in Report.objects.all()]:
         report = Report.objects.create(
+            user = request.user,
             name = now,
             created_date = timezone.now()
         )
