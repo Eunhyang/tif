@@ -135,6 +135,9 @@ def record(request):
     time_id = request.POST.get('timeId')
     print('----------'+time_id+'-------------')
     time = get_object_or_404(Time, pk=time_id)
+    # 삭제하고 다시 저장
+    time.activity.clear()
+    time.feeling.clear()
 
     activity_set = ([])
     activity_set = request.POST.get('activity').split()
@@ -147,12 +150,12 @@ def record(request):
             activity = Activity.objects.get(content = activity_cont)
             time.activity.add(activity.id)
 
-    feeling_set = request.POST.getlist('feeling')
-    for f in feeling_set:
+    feeling_list = request.POST.getlist('feeling')
+    for f in feeling_list:
         print('-------------------'+f+'-------------------')
         feeling = Feeling.objects.get(feeling = f )
         time.feeling.add(feeling)
-        return redirect('/')
+    return redirect('/')
 
     return render(request, 'tif/index.html')
 
