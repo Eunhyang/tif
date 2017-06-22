@@ -180,12 +180,34 @@ $(document).ready(function() {
       $('.addReport').click(function(){
         var timeId = $(this).attr('id');
         $.ajax({
-          dataType: "jason",
+          dataType: "json",
           url: '{%url 'tif:time_data' %}',
           type: 'GET',
           data: {"timeId" : timeId},
           success: function (data) {
             console.log(data);
+            var activityList = '';
+            var feelingList = [];
+            for (var i = 0; i < data.length; i++) {
+              if('activity' in data[i]){
+                activityList = activityList + data[i].activity;
+                activityList = activityList + ' ' ;
+              }
+              if('feeling' in data[i]){
+                feelingList.push(data[i].feeling);
+              }
+            }
+            $("input:checkbox[name='feeling']").each(function(index, item){
+              for (var i = 0; i < feelingList.length; i++) {
+                if(this.value == feelingList[i]){
+                  this.checked = true;
+                }
+              }
+            });
+            // 이게최선인가?
+
+            $('#record-Modal #activity').attr('value', activityList);
+            $('#record-Modal').modal('show')
           }
         })
       })

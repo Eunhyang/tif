@@ -18,8 +18,16 @@ class Time(models.Model):
         on_delete = models.CASCADE,
     )
     name = models.CharField(max_length = 5)
-    activity = models.ManyToManyField('Activity', null=True, blank=True)
-    feeling = models.ManyToManyField('Feeling', null=True, blank=True)
+    activity = models.ManyToManyField(
+        'Activity',
+        null=True,
+        blank=True,
+    )
+    feeling = models.ManyToManyField(
+        'Feeling',
+        null=True,
+        blank=True,
+    )
     def __str__(self):
         return self.name
 

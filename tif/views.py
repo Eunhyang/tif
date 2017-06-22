@@ -216,13 +216,14 @@ def time_data(request):
     time = get_object_or_404(Time, pk=time_id)
     result = []
     if request.method == "GET":
-        for activity in time.activity_set.all():
+        for activity in time.activity.all():
+            print('----------'+activity.content+'-------------')
             result.append({
-                'activity' : activity
+                'activity' : activity.content
             })
-        for feeling in time.feeling_set.all():
+        for feeling in time.feeling.all():
             result.append({
-                feeling : feeling
+                'feeling' : feeling.feeling
             })
 
     result = json.dumps(result)
