@@ -15,6 +15,8 @@
           <a href="{% url 'tif:logout' %}" class="btn btn-dark btn-lg">로그아웃</a>
           <a href="{% url 'tif:report_add' %}"
           class="btn btn-dark btn-lg">New report</a>
+          <a href="" id="kakao-link-btn"
+          class="btn btn-dark btn-lg">Message</a>
       </div>
 
       <div class="row">
@@ -201,5 +203,25 @@ $(document).ready(function() {
     {% endfor %}
   {% endif %}
 
+// 카카오 메시지 보내기
+  Kakao.init(' 6b4b7c8e9380d4ded6fb251b68415b32');
+  Kakao.Link.createDefaultButton({
+      container: '#kakao-link-btn',
+      objectType: 'feed',
+      content: {
+          title: '안녕',
+          imageUrl: 'tatic/img/discust.png',
+          link: {
+              mobileWebUrl: "http://kimeunhyang902.pythonanywhere.com/"
+          }
+      },
+      buttons: [{
+          title: '웹으로 이동',
+          link: {
+              mobileWebUrl: "http://kimeunhyang902.pythonanywhere.com/"
+          }
+      }],
+      installTalk : true
+  });
 </script>
 {% endblock %}
